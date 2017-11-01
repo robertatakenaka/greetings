@@ -17,3 +17,23 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
+
+
+@python_2_unicode_compatible
+class CommemorativeDate(models.Model):
+    name = models.CharField(_('Name'), max_length=255)
+    photo = models.ImageField(_('Photo'))
+    date = models.DateField(_('Date'))
+
+
+@python_2_unicode_compatible
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ImageField(_('Photo'))
+
+
+@python_2_unicode_compatible
+class Person(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    birthday = models.DateField(_('Birthday date'))
+    anniversary = models.DateField(_('Anniversary date'))
