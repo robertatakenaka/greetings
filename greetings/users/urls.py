@@ -19,8 +19,13 @@ urlpatterns = [
         name='detail'
     ),
     url(
-        regex=r'^~update/$',
-        view=views.UserUpdateView.as_view(),
-        name='update'
+        regex=r'^~update_photo/$',
+        view=views.UserUpdatePhotoView.as_view(),
+        name='update_photo'
+    ),
+    url(
+        regex=r'^~update_data/$',
+        view=views.UserUpdateDataView.as_view(),
+        name='update_data'
     ),
 ]

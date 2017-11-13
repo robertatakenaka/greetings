@@ -1,8 +1,10 @@
+from datetime import datetime
+from datetime import date
+
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
@@ -10,30 +12,33 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    year = datetime.now().isoformat()
+    default_date1 = year[0:10]
+    year = year[:4]
+    year = str(int(year) - 30)
+    default_date2 = year+'-07-01'
+
+    name = models.CharField('Apelido', blank=True, max_length=255)
+    photo = models.ImageField('Foto', blank=True, default='./photo.png')
+    birthday = models.DateField('Data de nascimento', blank=True, default=default_date2)
+    anniversary = models.DateField('Data de admissão', blank=True, default=default_date1)
 
     def __str__(self):
         return self.username
 
+    def birthday_day(self):
+        return self.birthday.isoformat()[6:]
+
+    def anniversary_day(self):
+        return self.anniversary.isoformat()[6:]
+
+    def years(self):
+        current = datetime.now().isoformat()[:4]
+        d = self.anniversary.isoformat()[:4]
+        return int(current) - int(d)
+
+    def display_years(self):
+        return str(self.years())
+
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
-
-
-@python_2_unicode_compatible
-class CommemorativeDate(models.Model):
-    name = models.CharField(_('Name'), max_length=255)
-    photo = models.ImageField(_('Photo'))
-    date = models.DateField(_('Date'))
-
-
-@python_2_unicode_compatible
-class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    photo = models.ImageField(_('Photo'))
-
-
-@python_2_unicode_compatible
-class Person(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    birthday = models.DateField(_('Birthday date'))
-    anniversary = models.DateField(_('Anniversary date'))

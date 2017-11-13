@@ -9,9 +9,38 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <h2>{{ object.username }}</h2>
+      <h2>Usuário: {{ object.username }}</h2>
       {% if object.name %}
         <p>{{ object.name }}</p>
+      {% endif %}
+      {% if object.email %}
+        <p>{{ object.email }}</p>
+      {% endif %}
+      <p>
+      {% if object.first_name %}
+        {{ object.first_name }}
+      {% endif %}
+      {% if object.last_name %}
+        {{ object.last_name }}
+      {% endif %}
+      </p>
+      {% if object.birthday %}
+        <p><em>Data de nascimento:</em> {{ object.birthday }}</p>
+      {% endif %}
+      {% if object.anniversary %}
+        <p><em>Data de admissão:</em> {{ object.anniversary }}</p>
+      {% endif %}
+      {% if object.birthday_day %}
+        <p><em>Dia do aniversário:</em> {{ object.birthday_day }}</p>
+      {% endif %}
+      {% if object.anniversary_day %}
+        <p><em>Aniversário de SciELO: </em>{{ object.anniversary_day }}</p>
+      {% endif %}
+      {% if object.display_years %}
+        <p><em>Anos: </em>{{ object.display_years }}</p>
+      {% endif %}
+      {% if object.photo %}
+        <p>{{ object.photo }}</p>
       {% endif %}
     </div>
   </div>
@@ -21,8 +50,9 @@
 <div class="row">
 
   <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <a class="btn btn-primary" href="{% url 'users:update_photo' %}" role="button">Alterar foto</a>
+    <a class="btn btn-primary" href="{% url 'users:update_data' %}" role="button">Alterar dados</a>
+    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">Alterar E-Mail</a>
     <!-- Your Stuff: Custom user template urls -->
   </div>
 

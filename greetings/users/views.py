@@ -21,9 +21,26 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
                        kwargs={'username': self.request.user.username})
 
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdatePhotoView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['photo', ]
+
+    # we already imported User in the view code above, remember?
+    model = User
+
+    # send the user back to their own page after a successful update
+    def get_success_url(self):
+        return reverse('users:detail',
+                       kwargs={'username': self.request.user.username})
+
+    def get_object(self):
+        # Only get the User record for the user making the request
+        return User.objects.get(username=self.request.user.username)
+
+
+class UserUpdateDataView(LoginRequiredMixin, UpdateView):
+
+    fields = ['birthday', 'anniversary', ]
 
     # we already imported User in the view code above, remember?
     model = User

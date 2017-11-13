@@ -63,7 +63,10 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # django-extensions
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['django_extensions', ]
+INSTALLED_APPS += [
+    'django_extensions',
+#    'special_dates.apps.SpecialDatesConfig',
+]
 
 # TESTING
 # ------------------------------------------------------------------------------
@@ -76,3 +79,9 @@ CELERY_ALWAYS_EAGER = True
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+
+#
+# -----
+DATE_INPUT_FORMATS = ('%Y-%m-%d')
+DAY_INPUT_FORMATS = ('%m-%d')

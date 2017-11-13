@@ -14,6 +14,7 @@ urlpatterns = [
 
     # User management
     url(r'^users/', include('greetings.users.urls', namespace='users')),
+    url(r'^dates/', include('dates.urls', namespace='dates')),
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
